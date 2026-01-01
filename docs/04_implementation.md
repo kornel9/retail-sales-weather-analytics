@@ -78,3 +78,11 @@ The function retrieves daily weather metrics (mean temperature and precipitation
 ### Backfill strategy
 To avoid large API requests and to keep the process reliable, historical ingestion is performed in monthly chunks. This mirrors real-world backfill practices and reduces the risk of timeouts.
 
+### Historical backfill (2021–2025)
+Historical weather data was ingested in monthly chunks (2021-01 to 2025-12) to avoid large API requests and reduce timeout/rate-limit risk. Each run writes a month-partitioned CSV file to:
+
+`raw/weather/year=YYYY/month=MM/weather_<start>_to_<end>.csv`
+
+This approach is consistent with real-world backfill patterns and supports efficient partition pruning in downstream analytics.
+
+Note: The Open-Meteo Archive API endpoint is used because the project requires multi-year historical coverage.
