@@ -10,7 +10,7 @@ s3 = boto3.client("s3")
 
 BUCKET_NAME = os.environ.get("BUCKET_NAME", "")
 
-# Store coordinates MUST match your sales dataset values (lat/lon).
+# Store coordinates MUST match the sales dataset values (lat/lon).
 # These are the same cities used in the generator script.
 STORES = [
     {"store": "Budapest", "country": "HU", "lat": 47.4979, "lon": 19.0402},
