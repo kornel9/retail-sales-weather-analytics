@@ -65,3 +65,16 @@ The data lake is implemented using Amazon S3 with a clear separation between raw
 
 The synthetic sales dataset covering 2021–2025 was uploaded to the raw sales layer and serves as the internal data source for the pipeline.
 
+## 4) Weather Ingestion (AWS Lambda + Open-Meteo)
+
+Weather data is ingested from the Open-Meteo API using an AWS Lambda function (`weather_ingest_openmeteo`).  
+The function retrieves daily weather metrics (mean temperature and precipitation sum) for each store location and writes the results into the S3 raw layer.
+
+### Output format and storage
+- Output: CSV
+- S3 path pattern:
+  - `raw/weather/year=YYYY/month=MM/weather_<start>_to_<end>.csv`
+
+### Backfill strategy
+To avoid large API requests and to keep the process reliable, historical ingestion is performed in monthly chunks. This mirrors real-world backfill practices and reduces the risk of timeouts.
+
