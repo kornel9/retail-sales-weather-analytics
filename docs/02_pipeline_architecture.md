@@ -12,3 +12,24 @@ This pipeline enables weather-aware retail analytics that can:
 - Support **promotion planning** (e.g., cold drink promotions on hot periods).
 - Reduce **waste and stockouts**, improving customer satisfaction and margin.
 - Provide a scalable pattern for integrating external contextual data sources into retail KPIs.
+
+# Pipeline Architecture
+
+## Architecture diagram
+![Pipeline Architecture](../architecture/pipeline_architecture.png)
+
+## High-level flow
+1. **Sales data ingestion:** Synthetic sales CSV is stored in Amazon S3 (raw layer).
+2. **Weather ingestion:** AWS Lambda retrieves daily weather metrics from the Open-Meteo API for each store location and stores results in S3 (raw layer).
+3. **Cataloging:** AWS Glue Crawlers register raw datasets as tables in the Glue Data Catalog.
+4. **Transformation:** AWS Glue ETL job joins sales and weather, applies cleaning/typing, and writes curated analytics-ready data back to S3 in Parquet format.
+5. **Analytics:** Amazon Athena queries the curated dataset to calculate KPIs and generate insights.
+
+## Cost overview (estimate)
+Based on expected student-scale volumes:
+- S3 storage: small (MB–GB scale)
+- Lambda ingestion: low frequency, within free-tier range
+- Glue crawlers + ETL: a few runs per month
+- Athena queries: small scans due to Parquet format
+
+Estimated total monthly cost: **~$1.5–$2.0** (order-of-magnitude estimate).
