@@ -1,1 +1,46 @@
+# Implementation
+
+## 1) Synthetic Sales Dataset Generation
+
+### Why synthetic data?
+Real retail sales data is often proprietary. To demonstrate a realistic pipeline without exposing sensitive information, I generated a synthetic dataset that simulates daily retail transactions across multiple stores and products.
+
+### Time range and granularity
+- Date range: **2021-01-01 to 2025-12-31**
+- Granularity: **daily sales per store per product**
+- File: `data/sales_synthetic_2021_2025.csv` (~4.6 MB)
+
+### Schema
+Columns:
+- `date` (YYYY-MM-DD)
+- `store`, `country`
+- `lat`, `lon` (store coordinates)
+- `product`
+- `quantity_sold`
+- `price`
+
+### Realism assumptions embedded in the generator
+The generator encodes business-realistic behavior:
+- **Seasonality:** summer boosts cold products (ice cream, cold drinks), winter boosts hot products (coffee, tea).
+- **Store size effects:** larger cities have higher baseline demand.
+- **Weekend uplift:** higher traffic on weekends.
+- **Promotions:** random promo events with demand uplift (more likely in summer and Nov–Dec).
+- **Price dynamics:** small inflation trend over time plus minor noise.
+
+These assumptions make downstream KPIs and insights interpretable, rather than purely random.
+
+## 2) Weather Data Integration Strategy (Join Logic)
+
+Sales data and weather data originate from independent systems and have different schemas. Integration is achieved by aligning records on shared temporal and spatial dimensions:
+
+**Join keys**
+- `date` (daily time dimension)
+- `lat`, `lon` (store location)
+
+Conceptually:
+- `sales.date = weather.date`
+- `sales.lat = weather.lat`
+- `sales.lon = weather.lon`
+
+This reflects common data warehousing practice where contextual data (weather) is joined to granular fact data (sales).
 
