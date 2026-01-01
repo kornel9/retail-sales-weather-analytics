@@ -54,3 +54,14 @@ Conceptually:
 
 This reflects common data warehousing practice where contextual data (weather) is joined to granular fact data (sales).
 
+## 3) Raw Data Storage (Amazon S3)
+
+The data lake is implemented using Amazon S3 with a clear separation between raw and curated data layers.
+
+### Bucket structure
+- `raw/sales/` – internal sales CSV data
+- `raw/weather/` – external weather data ingested via API
+- `curated/` – transformed, analytics-ready datasets
+
+The synthetic sales dataset covering 2021–2025 was uploaded to the raw sales layer and serves as the internal data source for the pipeline.
+
