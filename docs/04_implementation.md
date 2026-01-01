@@ -29,6 +29,16 @@ The generator encodes business-realistic behavior:
 
 These assumptions make downstream KPIs and insights interpretable, rather than purely random.
 
+### Synthetic Data Generator Code
+
+The synthetic sales dataset was generated using a custom Python script that encodes business-relevant assumptions such as seasonality, store size effects, promotions, and price inflation.
+
+The generator script is included in the repository for transparency and reproducibility:
+- `data_generation/generate_sales.py`
+
+The script was executed once to produce the input dataset used in the pipeline.
+
+
 ## 2) Weather Data Integration Strategy (Join Logic)
 
 Sales data and weather data originate from independent systems and have different schemas. Integration is achieved by aligning records on shared temporal and spatial dimensions:
