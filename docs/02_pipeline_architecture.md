@@ -33,3 +33,8 @@ Based on expected student-scale volumes:
 - Athena queries: small scans due to Parquet format
 
 Estimated total monthly cost: **~$1.5–$2.0** (order-of-magnitude estimate).
+
+## Scheduling consideration
+In a production deployment, the weather ingestion Lambda would be triggered daily using Amazon EventBridge.  
+In the AWS Academy sandbox environment, ingestion is demonstrated via manual execution and historical backfill, which validates the end-to-end pipeline logic.
+
