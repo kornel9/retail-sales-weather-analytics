@@ -58,6 +58,8 @@ This reflects common data warehousing practice where contextual data (weather) i
 
 The data lake is implemented using Amazon S3 with a clear separation between raw and curated data layers.
 
+![Amazon S3 bucket overview](../images/s3-overview.png)
+
 ### Bucket structure
 - `raw/sales/` – internal sales CSV data
 - `raw/weather/` – external weather data ingested via API
@@ -65,12 +67,22 @@ The data lake is implemented using Amazon S3 with a clear separation between raw
 
 The synthetic sales dataset covering 2021–2025 was uploaded to the raw sales layer and serves as the internal data source for the pipeline.
 
+![Raw sales CSV uploaded to S3](../images/s3,raw,sales,csv-uploaded.png)
+
+![Raw weather data folder in S3](../images/s3-inside-raw-folder.png)
+
+
 ## 4) Weather Ingestion (AWS Lambda + Open-Meteo)
 
 Weather data is ingested from the Open-Meteo API using an AWS Lambda function (`weather_ingest_openmeteo`).  
 The function retrieves daily weather metrics (mean temperature and precipitation sum) for each store location and writes the results into the S3 raw layer.
 
+![Successful Lambda execution fetching weather data](../images/lambda-successful-test-output.png)
+The Lambda function was manually executed to validate connectivity to the Open-Meteo API and correct ingestion logic. The successful response confirms that daily weather data is retrieved and processed correctly.
+
 ### Output format and storage
+![Weather CSV written to S3 after Lambda execution](../images/weather-file-after-test.png)
+Each Lambda execution writes a weather CSV file to the raw weather folder in S3 following a time-partitioned directory structure.
 - Output: CSV
 - S3 path pattern:
   - `raw/weather/year=YYYY/month=MM/weather_<start>_to_<end>.csv`
@@ -79,6 +91,14 @@ The function retrieves daily weather metrics (mean temperature and precipitation
 To avoid large API requests and to keep the process reliable, historical ingestion is performed in monthly chunks. This mirrors real-world backfill practices and reduces the risk of timeouts.
 
 ### Historical backfill (2021–2025)
+![Successful execution of multi-month weather backfill](../images/backfill-multiple%20ok.png)
+
+![Partitioned historical weather data in S3](../images/s3-overview.png)
+
+![Partitioned historical weather data in S3](../images/partioned-years.png)
+
+![Partitioned historical weather data in S3](../images/s3-partitioned-backfilled-struc.png)
+
 Historical weather data was ingested in monthly chunks (2021-01 to 2025-12) to avoid large API requests and reduce timeout/rate-limit risk. Each run writes a month-partitioned CSV file to:
 
 `raw/weather/year=YYYY/month=MM/weather_<start>_to_<end>.csv`
@@ -91,19 +111,47 @@ Note: The Open-Meteo Archive API endpoint is used because the project requires m
 
 AWS Glue Crawlers were used to automatically infer schemas and register the raw datasets as tables in the Glue Data Catalog.
 
+![AWS Glue Crawlers successfully completed](../images/crawlers-succeeded.png)
+Both crawlers completed successfully, confirming that AWS Glue was able to discover the raw datasets stored in Amazon S3 and register them in the Glue Data Catalog.
+
 - `crawler_raw_sales` crawls `s3://<bucket>/raw/sales/`
+![Sales table schema inferred by Glue Crawler](../images/sales-table-schema-crawler.png)
+The crawler inferred the sales table schema, including data types like dates, products, quantities, and prices, enabling downstream SQL-based analytics.
+
 - `crawler_raw_weather` crawls `s3://<bucket>/raw/weather/`
+![Weather table schema inferred by Glue Crawler](../images/weather-table-schema-crawler.png)
+The weather crawler registered daily temperature and precipitation metrics, standardizing external API data into a queryable tabular format.
+
 
 Both crawlers write tables into the Glue database `retail_weather_db`, enabling downstream querying and ETL development.
 
 ## 6) Data Transformation (AWS Glue ETL)
 
-An AWS Glue ETL job joins raw sales and raw weather data on date, store, and country.  
+An AWS Glue ETL job joins raw sales and raw weather data on date, store, and country.
+![AWS Glue ETL job visual DAG](../images/Glue-job-Visual-DAG.png)
+
+The Glue ETL job visually defines the transformation pipeline, including schema normalization, dataset joins, derived metric computation, and output materialization.
+
+Sales and weather datasets are joined on shared temporal and spatial dimensions.
+![Glue join transformation between sales and weather](../images/Glue-transform-join.png)
+
+
 The job standardizes schemas, computes daily revenue, and writes an analytics-ready dataset in Parquet format to the curated S3 layer.
+![Glue SQL transformation for derived metrics](../images/Glue-transform-sql-query.png)
+
 
 The curated dataset contains enriched sales records with associated daily weather conditions.
 
+![Successful Glue ETL job execution](../images/Glue-job-run-success.png)
+
+The successful job run confirms that the end-to-end transformation pipeline executed correctly and produced curated output without errors. The first try resulted a failed job run, but the second run was successful.
+
+
 ## 7) Analytics Layer (Amazon Athena)
+
+![Athena query verifying curated dataset](../images/Run-sanity-check-query-(prove-data-exists).png)
+
+A sanity check query confirms that the curated Parquet dataset is accessible and queryable using Amazon Athena.
 
 Amazon Athena was used as the analytics engine to query the curated Parquet dataset stored in Amazon S3.
 
