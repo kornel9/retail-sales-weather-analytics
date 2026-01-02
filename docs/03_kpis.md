@@ -33,6 +33,10 @@ Daily Ice Cream revenue is aggregated and grouped by average daily temperature r
 **Business value:**  
 Supports inventory planning, pricing strategy, and promotional decisions during warm and hot periods when demand increases.
 
+![Share of revenue from weather-sensitive products](../images/KPI-1.png)
+While cold days generate the highest total ice cream revenue due to their higher frequency across the year, hot days exhibit the highest average daily revenue, indicating a clear temperature-driven uplift in demand.
+This distinction highlights the importance of normalization when analyzing weather-sensitive sales effects.
+
 ---
 
 ## KPI 2 — Rain Sensitivity (Cold Drinks)
@@ -45,6 +49,9 @@ Revenue is grouped based on daily precipitation amounts to observe demand change
 
 **Business value:**  
 Helps retailers adapt product mix and staffing during rainy days and anticipate lower or shifted demand.
+
+![Cold Drink revenue segmented by precipitation level](../images/KPI-2-“Rain-sensitivity”-for-cold-drinks.png)
+
 
 ---
 
