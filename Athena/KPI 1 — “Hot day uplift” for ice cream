@@ -1,0 +1,26 @@
+--Business question: Do hot days increase ice cream revenue?
+
+WITH icecream AS (
+  SELECT
+    date, store, country,
+    daily_revenue,
+    temperature_mean
+  FROM curated_enriched_sales
+  WHERE product = 'Ice Cream'
+),
+bucketed AS (
+  SELECT
+    country,
+    store,
+    CASE
+      WHEN temperature_mean >= 25 THEN 'hot_day_25plus'
+      WHEN temperature_mean >= 15 THEN 'mild_15_24'
+      ELSE 'cold_below_15'
+    END AS temp_bucket,
+    SUM(daily_revenue) AS revenue
+  FROM icecream
+  GROUP BY 1,2,3
+)
+SELECT *
+FROM bucketed
+ORDER BY country, store, temp_bucket;
