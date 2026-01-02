@@ -38,3 +38,6 @@ Estimated total monthly cost: **~$1.5–$2.0** (order-of-magnitude estimate).
 In a production deployment, the weather ingestion Lambda would be triggered daily using Amazon EventBridge.  
 In the AWS Academy sandbox environment, ingestion is demonstrated via manual execution and historical backfill, which validates the end-to-end pipeline logic.
 
+AWS Glue Crawlers catalog both raw datasets into the Glue Data Catalog, which is then used by Glue ETL jobs and Athena.
+
+
