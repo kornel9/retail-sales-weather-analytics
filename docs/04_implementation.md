@@ -86,3 +86,13 @@ Historical weather data was ingested in monthly chunks (2021-01 to 2025-12) to a
 This approach is consistent with real-world backfill patterns and supports efficient partition pruning in downstream analytics.
 
 Note: The Open-Meteo Archive API endpoint is used because the project requires multi-year historical coverage.
+
+## 5) Data Cataloging (AWS Glue Crawlers)
+
+AWS Glue Crawlers were used to automatically infer schemas and register the raw datasets as tables in the Glue Data Catalog.
+
+- `crawler_raw_sales` crawls `s3://<bucket>/raw/sales/`
+- `crawler_raw_weather` crawls `s3://<bucket>/raw/weather/`
+
+Both crawlers write tables into the Glue database `retail_weather_db`, enabling downstream querying and ETL development.
+
