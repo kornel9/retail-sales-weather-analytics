@@ -96,3 +96,9 @@ AWS Glue Crawlers were used to automatically infer schemas and register the raw 
 
 Both crawlers write tables into the Glue database `retail_weather_db`, enabling downstream querying and ETL development.
 
+## 6) Data Transformation (AWS Glue ETL)
+
+An AWS Glue ETL job joins raw sales and raw weather data on date, store, and country.  
+The job standardizes schemas, computes daily revenue, and writes an analytics-ready dataset in Parquet format to the curated S3 layer.
+
+The curated dataset contains enriched sales records with associated daily weather conditions.
