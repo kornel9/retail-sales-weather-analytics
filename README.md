@@ -23,3 +23,7 @@ We design and implement an AWS-based data pipeline that:
 - `docs/` – Project documentation (business context, architecture, KPIs, implementation)
 - `data/` – Synthetic input datasets
 - `architecture/` – Architecture diagrams
+- `backfill` – Python code for the backfilling
+- `Athena` – Sql queries for the creation of the Athena db and for the KPIs
+- `data_generation` – Python code for the synthetic data generation
+- `lambda` – Python code for the openmeteo API call
