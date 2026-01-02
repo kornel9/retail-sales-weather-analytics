@@ -1,5 +1,3 @@
---Business question: Do hot days increase ice cream revenue?
-
 WITH icecream AS (
   SELECT
     date, store, country,
