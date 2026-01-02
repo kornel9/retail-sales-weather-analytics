@@ -102,3 +102,16 @@ An AWS Glue ETL job joins raw sales and raw weather data on date, store, and cou
 The job standardizes schemas, computes daily revenue, and writes an analytics-ready dataset in Parquet format to the curated S3 layer.
 
 The curated dataset contains enriched sales records with associated daily weather conditions.
+
+## 7) Analytics Layer (Amazon Athena)
+
+Amazon Athena was used as the analytics engine to query the curated Parquet dataset stored in Amazon S3.
+
+An external table was created over the curated output, enabling serverless SQL-based analysis without additional infrastructure.
+
+Athena queries were executed to:
+- Validate the availability and structure of the curated dataset
+- Compute business KPIs linking sales performance to weather conditions
+- Demonstrate analytical usability of the end-to-end data pipeline
+
+This analytics layer completes the pipeline by enabling ad-hoc exploration and business insight generation directly from the curated data.
