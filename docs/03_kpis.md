@@ -16,6 +16,8 @@ This project contributes to measuring and improving the following KPIs:
 
 (These KPIs will be computed using Athena SQL on the curated dataset after joining sales and weather.)
 
+In this project, I operationalize these concepts via the following three measurable SQL KPIs
+
 # KPIs
 
 This document describes the key business metrics derived from the curated sales and weather dataset using Amazon Athena.
