@@ -155,7 +155,10 @@ A sanity check query confirms that the curated Parquet dataset is accessible and
 
 Amazon Athena was used as the analytics engine to query the curated Parquet dataset stored in Amazon S3.
 
+An Athena database named retail_weather_athena is created to logically group all analytics tables derived from the curated data layer.
+
 An external table was created over the curated output, enabling serverless SQL-based analysis without additional infrastructure.
+The primary external table, curated_enriched_sales, points to the Parquet dataset stored in the curated S3 layer and serves as the foundation for all KPI queries.
 
 Athena queries were executed to:
 - Validate the availability and structure of the curated dataset
