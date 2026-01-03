@@ -1,3 +1,20 @@
+"""
+Script Name: Weather Backfill Orchestrator
+Description: 
+    Orchestrates the retrieval of historical weather data to backfill the data lake.
+    It iterates through a defined date range and triggers the ingestion process
+    (either by calling the API directly or invoking the Lambda function).
+
+Key Logic:
+    - Batching: Breaks requests into [e.g., monthly] chunks to manage memory/processing.
+    - Rate Limiting: Includes sleep intervals to respect OpenMeteo API limits.
+    - Idempotency: Can be re-run for specific date ranges without duplicating data.
+
+Dependencies:
+    - boto3 (if invoking Lambda/S3)
+    - requests (if calling API directly)
+"""
+
 #!/bin/bash
 set -euo pipefail
 
