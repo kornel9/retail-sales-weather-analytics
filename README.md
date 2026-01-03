@@ -41,3 +41,5 @@ I design and implement an AWS-based data pipeline that:
 4. Run Glue Crawlers to create `sales_raw` and `weather_raw` tables
 5. Run Glue ETL job to create curated Parquet in `curated/enriched_sales/`
 6. Create Athena external table (`Athena/Create_db_in_Athena.sql`) and run KPI queries
+
+Note: AI-assisted tools were used during development to support coding efficiency and documentation clarity.
