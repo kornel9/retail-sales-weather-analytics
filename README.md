@@ -32,7 +32,7 @@ I design and implement an AWS-based data pipeline that:
 - Synthetic sales generator: [`data_generation/generate_sales.py`](data_generation/generate_sales.py)
 - Weather backfill runner (monthly chunking): [`backfill/backfill.py`](backfill/backfill.py)
 - Athena DB + external table creation: [`Athena/Create_db_in_Athena.sql`](Athena/Create_db_in_Athena.sql)
-- Lambda function code: [`lambda/`](lambda/)
+- Lambda function code: [`lambda/`](lambda/weather_ingest_openmeteo.py)
 
 ## Reproducibility (high level)
 1. Generate synthetic sales CSV: run `data_generation/generate_sales.py` (or use provided `data/sales_synthetic_2021_2025.csv`)
