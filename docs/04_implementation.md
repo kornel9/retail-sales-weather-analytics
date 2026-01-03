@@ -144,7 +144,7 @@ The curated dataset contains enriched sales records with associated daily weathe
 
 ![Successful Glue ETL job execution](../images/Glue-job-run-success.png)
 
-The successful job run confirms that the end-to-end transformation pipeline executed correctly and produced curated output without errors. The first try resulted a failed job run, but the second run was successful.
+The successful job run confirms that the end-to-end transformation pipeline executed correctly and produced curated output without errors. The first try resulted a failed job run, but after addressing some minor issues the second run was successful.
 
 
 ## 7) Analytics Layer (Amazon Athena)
