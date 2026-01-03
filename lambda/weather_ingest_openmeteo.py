@@ -1,3 +1,24 @@
+"""
+Lambda Function: OpenMeteo Weather Ingest
+Handler: lambda_handler
+
+Description:
+    Queries the OpenMeteo API for specific weather metrics (rain, temp) 
+    for a given location and date, then saves the result as a JSON/Parquet 
+    file to the raw S3 bucket.
+
+Triggers:
+    - Scheduled: EventBridge (Daily run)
+    - Manual: Via backfill.py script
+
+Environment Variables:
+    - TARGET_BUCKET: [e.g., my-project-raw-data]
+    - API_ENDPOINT: https://api.open-meteo.com/v1/forecast
+
+Returns:
+    Dict containing statusCode and message (for logging/debugging).
+"""
+
 import os
 import json
 import urllib.request
