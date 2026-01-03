@@ -1,3 +1,23 @@
+"""
+Script Name: Synthetic Sales Generator
+Description: 
+    Generates a synthetic dataset representing daily sales transactions.
+    Used to populate the 'raw/sales' S3 bucket for testing the ETL pipeline 
+    without requiring sensitive production data.
+
+Output:
+    - Format: CSV
+    - Columns: [e.g., date, store_id, product_id, units_sold, revenue]
+    - Location: Saves locally to ./data/ or uploads directly to S3 (depending on config).
+
+Usage:
+    Run manually: `python generate_sales.py`
+
+Configuration:
+    - DATE_RANGE: [e.g., 2021-01-01 to Present]
+    - RANDOM_SEED: Fixed for reproducibility.
+"""
+
 import csv
 import random
 from datetime import date, timedelta
