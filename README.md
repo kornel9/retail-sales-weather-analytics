@@ -42,4 +42,9 @@ I design and implement an AWS-based data pipeline that:
 5. Run Glue ETL job to create curated Parquet in `curated/enriched_sales/`
 6. Create Athena external table (`Athena/Create_db_in_Athena.sql`) and run KPI queries
 
+## Cost Overview
+The serverless AWS architecture was designed to minimize operational costs.  
+Using the AWS Pricing Calculator, the estimated cost of the full pipeline is approximately **5.52 USD per year**.  
+Detailed cost assumptions are documented in [`docs/`](docs/cost_estimation.md)
+
 Note: AI-assisted tools were used during development to support coding efficiency and documentation clarity.
