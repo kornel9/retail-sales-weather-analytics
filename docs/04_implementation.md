@@ -99,6 +99,12 @@ To avoid large API requests and to keep the process reliable, historical ingesti
 
 ![Partitioned historical weather data in S3](../images/s3-partitioned-backfilled-struc.png)
 
+![Partitioned historical weather data in S3](../images/curated_folder_enriched_sales.png)
+
+![Partitioned historical weather data in S3](../images/curate_folder_hun.png)
+
+![Partitioned historical weather data in S3](../images/curated_folder_hun_parquets.png)
+
 Historical weather data was ingested in monthly chunks (2021-01 to 2025-12) to avoid large API requests and reduce timeout/rate-limit risk. Each run writes a month-partitioned CSV file to:
 
 `raw/weather/year=YYYY/month=MM/weather_<start>_to_<end>.csv`
@@ -130,13 +136,24 @@ An AWS Glue ETL job joins raw sales and raw weather data on date, store, and cou
 
 The Glue ETL job visually defines the transformation pipeline, including schema normalization, dataset joins, derived metric computation, and output materialization.
 
-Sales and weather datasets are joined on shared temporal and spatial dimensions.
+
+
+![Glue transformation sales](../images/Glue-transform-change-schema.png)
+![Glue transformation sales](../images/Glue-change%20schema-weather.png)
+
+This step standardizes the raw weather and raw sales dataset by selecting relevant fields, renaming columns, and enforcing consistent data types to ensure reliable downstream joins and analytics.
+
+
 ![Glue join transformation between sales and weather](../images/Glue-transform-join.png)
 
+Sales and weather datasets are joined on shared temporal and spatial dimensions.
 
-The job standardizes schemas, computes daily revenue, and writes an analytics-ready dataset in Parquet format to the curated S3 layer.
+
 ![Glue SQL transformation for derived metrics](../images/Glue-transform-sql-query.png)
 
+The job standardizes schemas, computes daily revenue, and writes an analytics-ready dataset in Parquet format to the curated S3 layer.
+
+![Glue SQL transformation for derived metrics](../images/Glue-visual-curated-output.png)
 
 The curated dataset contains enriched sales records with associated daily weather conditions.
 
