@@ -7,7 +7,7 @@ This project implements a cloud-based data engineering pipeline to analyze the r
 Retail demand is strongly influenced by weather conditions such as temperature and precipitation. Without integrating weather data into sales analytics, businesses risk overstocking, understocking, and inefficient pricing decisions.
 
 ## Solution
-I design and implement an AWS-based data pipeline that:
+I designed and implemented an AWS-based data pipeline that:
 - Ingests internal sales data and external weather data
 - Transforms and enriches the data
 - Stores curated analytics-ready datasets
@@ -20,7 +20,7 @@ I design and implement an AWS-based data pipeline that:
 - Amazon Athena
 
 ## Repository Structure
-- `docs/` – Project documentation (business context, architecture, KPIs, implementation)
+- `docs/` – Project documentation (architecture, KPIs, implementation, cost estimation)
 - `data/` – Synthetic input datasets
 - `architecture/` – Architecture diagrams
 - `backfill/` – Python code for the backfilling
