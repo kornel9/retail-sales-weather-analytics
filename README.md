@@ -45,6 +45,6 @@ I design and implement an AWS-based data pipeline that:
 ## Cost Overview
 The serverless AWS architecture was designed to minimize operational costs.  
 Using the AWS Pricing Calculator, the estimated cost of the full pipeline is approximately **5.52 USD per year**.  
-Detailed cost assumptions are documented in [`docs/`](docs/cost_estimation.md)
+Detailed cost assumptions are documented in [`docs/`](docs/05_cost_estimation.md)
 
 Note: AI-assisted tools were used during development to support coding efficiency and documentation clarity.
