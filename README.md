@@ -32,7 +32,7 @@ I design and implement an AWS-based data pipeline that:
 - Synthetic sales generator: [`data_generation/generate_sales.py`](data_generation/generate_sales.py)
 - Weather backfill runner (monthly chunking): [`backfill/backfill.py`](backfill/backfill.py)
 - Athena DB + external table creation: [`Athena/Create_db_in_Athena.sql`](Athena/Create_db_in_Athena.sql)
-- Lambda function code: [`lambda/`](lambda/weather_ingest_openmeteo.py)
+- Lambda function code: [`lambda/weather_ingest_openmeteo.py`](lambda/weather_ingest_openmeteo.py)
 
 ## Reproducibility (high level)
 1. Generate synthetic sales CSV: run `data_generation/generate_sales.py` (or use provided `data/sales_synthetic_2021_2025.csv`)
@@ -45,6 +45,6 @@ I design and implement an AWS-based data pipeline that:
 ## Cost Overview
 The serverless AWS architecture was designed to minimize operational costs.  
 Using the AWS Pricing Calculator, the estimated cost of the full pipeline is approximately **5.52 USD per year**.  
-Detailed cost assumptions are documented in [`docs/`](docs/05_cost_estimation.md)
+Detailed cost assumptions are documented in [`docs/05_cost_estimation.md`](docs/05_cost_estimation.md)
 
 Note: AI-assisted tools were used during development to support coding efficiency and documentation clarity.
