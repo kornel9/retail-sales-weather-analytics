@@ -48,7 +48,7 @@ def _iso(d: date) -> str:
 def fetch_open_meteo_daily(lat: float, lon: float, start_date: str, end_date: str) -> dict:
     """
     Fetch daily weather from Open-Meteo for the given lat/lon and date range (inclusive).
-    We request daily mean temperature + precipitation sum (simple and useful for retail demand).
+    Request daily mean temperature + precipitation sum (simple and useful for retail demand).
     """
     url = (
         "https://archive-api.open-meteo.com/v1/archive"
