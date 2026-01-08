@@ -99,12 +99,6 @@ To avoid large API requests and to keep the process reliable, historical ingesti
 
 ![Partitioned historical weather data in S3](../images/s3-partitioned-backfilled-struc.png)
 
-![Partitioned historical weather data in S3](../images/curated_folder_enriched_sales.png)
-
-![Partitioned historical weather data in S3](../images/curate_folder_hun.png)
-
-![Partitioned historical weather data in S3](../images/curated_folder_hun_parquets.png)
-
 Historical weather data was ingested in monthly chunks (2021-01 to 2025-12) to avoid large API requests and reduce timeout/rate-limit risk. Each run writes a month-partitioned CSV file to:
 
 `raw/weather/year=YYYY/month=MM/weather_<start>_to_<end>.csv`
@@ -161,6 +155,11 @@ The curated dataset contains enriched sales records with associated daily weathe
 
 The successful job run confirms that the end-to-end transformation pipeline executed correctly and produced curated output without errors. The first try resulted a failed job run, but after addressing some minor issues the second run was successful.
 
+![Partitioned historical weather data in S3](../images/curated_folder_enriched_sales.png)
+
+![Partitioned historical weather data in S3](../images/curate_folder_hun.png)
+
+![Partitioned historical weather data in S3](../images/curated_folder_hun_parquets.png)
 
 ## 7) Analytics Layer (Amazon Athena)
 
